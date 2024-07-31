@@ -11,8 +11,6 @@ jobs:
     steps:
       - name: Checkout source repository
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
 
       - name: Set up Git
         run: |
@@ -32,16 +30,15 @@ jobs:
           cd jb-cicd-playground
           cp -r payments/* ../.
 
-      - name: Commit changes
-        run: |
-          git add .
-          git commit -m "Sync payments folder from main-repo"
-
       - name: Delete old repository
         run: |
           cd ..
           rm -rf jb-cicd-playground
 
+      - name: Commit changes
+        run: |
+          git add .
+          git commit -m "Sync payments folder from main-repo"
       - name: Push changes
         env:
           PAT: ${{ secrets.PAT }}
