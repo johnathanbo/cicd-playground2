@@ -14,7 +14,7 @@ jobs:
 
       - name: Set up Git
         run: |
-          git config --global user.name 'johnathanbo'
+          git config --global user.name 'john bo'
           git config --global user.email 'oraclemars@gmail.com'
 
       - name: Clone remote repository
