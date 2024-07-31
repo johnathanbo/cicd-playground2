@@ -17,6 +17,12 @@ jobs:
           git config --global user.name 'John Bo'
           git config --global user.email 'oraclemars@gmail.com'
 
+      - name: Set up Git credentials
+        env:
+          PAT: ${{ secrets.SUPERPAT }}
+        run: |
+          git config --global credential.helper 'store'
+          echo "https://x-access-token:${PAT}@github.com" > ~/.git-credentials
       - name: Clone remote repository
         env:
           GITHUB_TOKEN: ${{ secrets.SUPERPAT }}
