@@ -3,7 +3,8 @@ name: Sync Payments Folder
 on:
   repository_dispatch:
     types: [payments-sync-ready]
-
+permissions:
+  contents: write
 jobs:
   sync:
     runs-on: ubuntu-latest
