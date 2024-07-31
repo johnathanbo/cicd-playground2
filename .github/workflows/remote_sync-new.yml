@@ -25,8 +25,8 @@ jobs:
           REPO_OWNER: ${{ secrets.REPO_OWNER }}
           REPO_NAME: ${{ secrets.REPO_NAME }}
         run: |
-          git clone https://x-access-token:${GITHUB_TOKEN}@github.com/${{secrets.REPO_OWNER}}/${{ secrets.REPO_NAME }}.git
-          cd ${{  secrets.REPO_NAME  }}
+          git clone https://x-access-token:${GITHUB_TOKEN}@github.com/johnathanbo/cicd-playground2.git
+          cd cicd-playground2
 
       - name: Copy payments folder to remote repository
         run: |
@@ -40,7 +40,7 @@ jobs:
       - name: Delete old repository
         run: |
           cd ..
-          rm -rf ${{ secrets.REPO_NAME}}
+          rm -rf cicd-playground2
 
       - name: Push changes
         run: |
