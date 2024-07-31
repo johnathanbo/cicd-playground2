@@ -43,5 +43,7 @@ jobs:
           rm -rf jb-cicd-playground
 
       - name: Push changes
+        env:
+          PAT: ${{ secrets.PAT }}
         run: |
-          git push origin main
+          git push https://x-access-token:${PAT}@github.com/${REPO_OWNER}/${REPO_NAME}.git main
