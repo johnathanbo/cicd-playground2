@@ -46,4 +46,4 @@ jobs:
         env:
           PAT: ${{ secrets.PAT }}
         run: |
-          git push https://x-access-token:${PAT}@github.com/${REPO_OWNER}/${REPO_NAME}.git main
+          git push https://x-access-token:${PAT}@github.com/johnathanbo/cicd-playground2.git main
