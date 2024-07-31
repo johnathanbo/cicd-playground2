@@ -26,10 +26,10 @@ jobs:
           REPO_NAME: ${{ secrets.REPO_NAME }}
         run: |
           git clone https://x-access-token:${GITHUB_TOKEN}@github.com/johnathanbo/jb-cicd-playground.git
-          cd jb-cicd-playground
 
       - name: Copy payments folder to remote repository
         run: |
+          cd jb-cicd-playground
           cp -r ../payments/* .
 
       - name: Commit changes
