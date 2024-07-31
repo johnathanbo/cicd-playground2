@@ -30,7 +30,7 @@ jobs:
       - name: Copy payments folder to remote repository
         run: |
           cd jb-cicd-playground
-          cp -r ../payments/* .
+          cp -r payments/* ../.
 
       - name: Commit changes
         run: |
