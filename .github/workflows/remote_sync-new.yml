@@ -1,0 +1,47 @@
+name: Sync Payments Folder
+
+on:
+  repository_dispatch:
+    types: [payments-sync-ready]
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set up Git
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Clone remote repository
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO_OWNER: ${{ secrets.REPO_OWNER }}
+          REPO_NAME: ${{ secrets.REPO_NAME }}
+        run: |
+          git clone https://x-access-token:${GITHUB_TOKEN}@github.com/${{secrets.REPO_OWNER}}/${{ secrets.REPO_NAME }}.git
+          cd ${{  secrets.REPO_NAME  }}
+
+      - name: Copy payments folder to remote repository
+        run: |
+          cp -r ../payments/* .
+
+      - name: Commit changes
+        run: |
+          git add .
+          git commit -m "Sync payments folder from main-repo"
+
+      - name: Delete old repository
+        run: |
+          cd ..
+          rm -rf ${{ secrets.REPO_NAME}}
+
+      - name: Push changes
+        run: |
+          git push origin main
