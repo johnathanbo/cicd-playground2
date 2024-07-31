@@ -10,11 +10,11 @@ jobs:
 
     steps:
       - name: Checkout source repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Git
         run: |
-          git config --global user.name 'john bo'
+          git config --global user.name 'John Bo'
           git config --global user.email 'oraclemars@gmail.com'
 
       - name: Clone remote repository
