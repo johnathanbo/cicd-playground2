@@ -40,7 +40,7 @@ jobs:
       - name: Delete old repository
         run: |
           cd ..
-          rm -rf cicd-playground2
+          rm -rf jb-cicd-playground
 
       - name: Push changes
         run: |
