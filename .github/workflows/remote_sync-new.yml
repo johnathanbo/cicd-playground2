@@ -19,7 +19,7 @@ jobs:
 
       - name: Clone remote repository
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
+          GITHUB_TOKEN: ${{ secrets.SUPERPAT }}
           REPO_OWNER: ${{ secrets.REPO_OWNER }}
           REPO_NAME: ${{ secrets.REPO_NAME }}
         run: |
@@ -41,6 +41,6 @@ jobs:
           git commit -m "Sync payments folder from main-repo"
       - name: Push changes
         env:
-          PAT: ${{ secrets.PAT }}
+          PAT: ${{ secrets.SUPERPAT }}
         run: |
           git push https://x-access-token:${PAT}@github.com/johnathanbo/cicd-playground2.git main
