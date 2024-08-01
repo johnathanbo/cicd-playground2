@@ -15,8 +15,8 @@ jobs:
 
       - name: Set up Git
         run: |
-          git config --global user.name 'John Bo'
-          git config --global user.email 'oraclemars@gmail.com'
+          git config --global user.name '${{ secrets.GIT_USERNAME }}'
+          git config --global user.email '${{ secrets.GIT_EMAIL }}'
 
       - name: Set up Git credentials
         env:
@@ -30,17 +30,17 @@ jobs:
           REPO_OWNER: ${{ secrets.REPO_OWNER }}
           REPO_NAME: ${{ secrets.REPO_NAME }}
         run: |
-          git clone https://x-access-token:${GITHUB_TOKEN}@github.com/johnathanbo/jb-cicd-playground.git
+          git clone https://x-access-token:${GITHUB_TOKEN}@github.com/${REPO_OWNER}/${REPO_NAME}.git
 
       - name: Copy payments folder to remote repository
         run: |
-          cd jb-cicd-playground
+          cd ${REPO_NAME} 
           cp -r payments/* ../.
 
       - name: Delete old repository
         run: |
           cd ..
-          rm -rf jb-cicd-playground
+          rm -rf ${REPO_NAME}
 
       - name: Commit changes
         run: |
@@ -49,5 +49,6 @@ jobs:
       - name: Push changes
         env:
           PAT: ${{ secrets.SUPERPAT }}
+          REPO_OWNER: ${{ secrets.REPO_OWNER }}
         run: |
-          git push https://x-access-token:${PAT}@github.com/johnathanbo/cicd-playground2.git main
+          git push https://x-access-token:${PAT}@github.com/${REPO_OWNER}/cicd-playground2.git main
