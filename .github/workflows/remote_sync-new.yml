@@ -3,11 +3,19 @@ name: Sync Payments Folder
 on:
   repository_dispatch:
     types: [payments-sync-ready]
+
 permissions:
   contents: write
+
 jobs:
   sync:
     runs-on: ubuntu-latest
+
+    env:
+      GITHUB_TOKEN: ${{ secrets.PAT }}
+      REPO_OWNER: ${{ secrets.REPO_OWNER }}
+      REPO_NAME: ${{ secrets.REPO_NAME }}
+      PAT: ${{ secrets.PAT }}
 
     steps:
       - name: Checkout source repository
@@ -19,29 +27,20 @@ jobs:
           git config --global user.email '${{ secrets.GIT_EMAIL }}'
 
       - name: Set up Git credentials
-        env:
-          PAT: ${{ secrets.PAT }}
         run: |
           git config --global credential.helper 'store'
           echo "https://x-access-token:${PAT}@github.com" > ~/.git-credentials
+
       - name: Clone remote repository
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
-          REPO_OWNER: ${{ secrets.REPO_OWNER }}
-          REPO_NAME: ${{ secrets.REPO_NAME }}
         run: |
           git clone https://x-access-token:${GITHUB_TOKEN}@github.com/${REPO_OWNER}/${REPO_NAME}.git
 
       - name: Copy payments folder to remote repository
-        env:
-          REPO_NAME: ${{ secrets.REPO_NAME }}
         run: |
-          cd ${REPO_NAME} 
+          cd ${REPO_NAME}
           cp -r payments/* ../.
 
       - name: Delete old repository
-        env:
-          REPO_NAME: ${{ secrets.REPO_NAME }}
         run: |
           cd ..
           rm -rf ${REPO_NAME}
@@ -50,9 +49,7 @@ jobs:
         run: |
           git add .
           git commit -m "Sync payments folder from main-repo"
+
       - name: Push changes
-        env:
-          PAT: ${{ secrets.PAT }}
-          REPO_OWNER: ${{ secrets.REPO_OWNER }}
         run: |
           git push https://x-access-token:${PAT}@github.com/${REPO_OWNER}/cicd-playground2.git main
