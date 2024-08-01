@@ -12,7 +12,6 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      GITHUB_TOKEN: ${{ secrets.PAT }}
       REPO_OWNER: ${{ secrets.REPO_OWNER }}
       REPO_NAME: ${{ secrets.REPO_NAME }}
       PAT: ${{ secrets.PAT }}
@@ -33,19 +32,17 @@ jobs:
 
       - name: Clone remote repository
         run: |
-          git clone https://x-access-token:${GITHUB_TOKEN}@github.com/${REPO_OWNER}/${REPO_NAME}.git
+          git clone https://x-access-token:${PAT}@github.com/${REPO_OWNER}/${REPO_NAME}.git
 
       - name: Copy payments folder to remote repository
         run: |
           cd ${REPO_NAME}
           cp -r payments/* ../.
 
-      - name: Remove submodule configuration
+      - name: Delete old repository
         run: |
           cd ..
-          git submodule deinit -f -- ${REPO_NAME}
-          git rm -f ${REPO_NAME}
-          rm -rf .git/modules/${REPO_NAME}
+          rm -rf ${REPO_NAME}
 
       - name: Commit changes
         run: |
