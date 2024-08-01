@@ -42,6 +42,7 @@ jobs:
 
       - name: Remove submodule configuration
         run: |
+          ls -a 
           git submodule deinit -f -- ${REPO_NAME}
           git rm -rf ${REPO_NAME}
           rm -rf .git/modules/${REPO_NAME}
