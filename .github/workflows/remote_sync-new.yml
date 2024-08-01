@@ -37,13 +37,14 @@ jobs:
 
       - name: Copy payments folder to remote repository
         run: |
-          cp -r ${REPO_NAME}/payments/* .
+          cd ${REPO_NAME}
+          cp -r payments/* ../.
 
       - name: Remove submodule configuration
         run: |
-          cd ${REPO_NAME}
-          git submodule deinit -f -- .
-          git rm -f .
+          cd ..
+          git submodule deinit -f -- ${REPO_NAME}
+          git rm -rf ${REPO_NAME}
           rm -rf .git/modules/${REPO_NAME}
 
       - name: Commit changes
