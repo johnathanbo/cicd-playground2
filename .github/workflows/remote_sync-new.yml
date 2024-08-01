@@ -20,13 +20,13 @@ jobs:
 
       - name: Set up Git credentials
         env:
-          PAT: ${{ secrets.SUPERPAT }}
+          PAT: ${{ secrets.PAT }}
         run: |
           git config --global credential.helper 'store'
           echo "https://x-access-token:${PAT}@github.com" > ~/.git-credentials
       - name: Clone remote repository
         env:
-          GITHUB_TOKEN: ${{ secrets.SUPERPAT }}
+          GITHUB_TOKEN: ${{ secrets.PAT }}
           REPO_OWNER: ${{ secrets.REPO_OWNER }}
           REPO_NAME: ${{ secrets.REPO_NAME }}
         run: |
@@ -48,7 +48,7 @@ jobs:
           git commit -m "Sync payments folder from main-repo"
       - name: Push changes
         env:
-          PAT: ${{ secrets.SUPERPAT }}
+          PAT: ${{ secrets.PAT }}
           REPO_OWNER: ${{ secrets.REPO_OWNER }}
         run: |
           git push https://x-access-token:${PAT}@github.com/${REPO_OWNER}/cicd-playground2.git main
