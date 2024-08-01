@@ -45,7 +45,6 @@ jobs:
           cd ..
           git submodule deinit -f -- ${REPO_NAME}
           git rm -rf ${REPO_NAME}
-          rm -rf .git/modules/${REPO_NAME}
 
       - name: Commit changes
         run: |
