@@ -40,10 +40,12 @@ jobs:
           cd ${REPO_NAME}
           cp -r payments/* ../.
 
-      - name: Delete old repository
+      - name: Remove submodule configuration
         run: |
           cd ..
-          rm -rf ${REPO_NAME}
+          git submodule deinit -f -- ${REPO_NAME}
+          git rm -f ${REPO_NAME}
+          rm -rf .git/modules/${REPO_NAME}
 
       - name: Commit changes
         run: |
