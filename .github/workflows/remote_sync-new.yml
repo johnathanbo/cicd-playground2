@@ -33,11 +33,15 @@ jobs:
           git clone https://x-access-token:${GITHUB_TOKEN}@github.com/${REPO_OWNER}/${REPO_NAME}.git
 
       - name: Copy payments folder to remote repository
+        env:
+          REPO_NAME: ${{ secrets.REPO_NAME }}
         run: |
           cd ${REPO_NAME} 
           cp -r payments/* ../.
 
       - name: Delete old repository
+        env:
+          REPO_NAME: ${{ secrets.REPO_NAME }}
         run: |
           cd ..
           rm -rf ${REPO_NAME}
