@@ -41,14 +41,10 @@ jobs:
           cd ${REPO_NAME} 
           cp -r payments/* ../.
 
-      - name: Check .git folder
+      - name: Delete old repository
         run: |
-          git submodule deinit -f ${REPO_NAME}
-          git rm -f ${REPO_NAME}
-          rn -rf ${REPO_NAME}
-
-          cd .git
-          ls -a
+          cd ..
+          rm -rf ${REPO_NAME}
 
       - name: Commit changes
         run: |
