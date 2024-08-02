@@ -46,6 +46,11 @@ jobs:
           cd ..
           rm -rf ${REPO_NAME}
 
+      - name: Check .git folder
+        run: |
+          cd .git
+          ls -a
+
       - name: Commit changes
         run: |
           git add .
