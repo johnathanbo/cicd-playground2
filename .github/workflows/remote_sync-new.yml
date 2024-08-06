@@ -5,14 +5,15 @@ on:
     types: [payments-sync-ready]
 permissions:
   contents: write
-env:
-  PAT: ${{ secrets.PAT }}
-  REPO_OWNER: ${{ secrets.REPO_OWNER }}
-  REPO_NAME: ${{ secrets.REPO_NAME }}
-
 jobs:
   sync:
     runs-on: ubuntu-latest
+    env:
+      PAT: ${{ secrets.PAT }}
+      GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
+      GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
+      REPO_OWNER: ${{ secrets.REPO_OWNER }}
+      REPO_NAME: ${{ secrets.REPO_NAME }}
 
     steps:
       - name: Checkout source repository
@@ -20,8 +21,8 @@ jobs:
 
       - name: Set up Git
         run: |
-          git config --global user.name '${{ secrets.GIT_USERNAME }}'
-          git config --global user.email '${{ secrets.GIT_EMAIL }}'
+          git config --global user.name '${GIT_USERNAME}'
+          git config --global user.email '${GIT_EMAIL}'
 
       - name: Set up Git credentials
         run: |
