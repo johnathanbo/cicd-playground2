@@ -3,6 +3,8 @@ name: Create PR
 on:
   repository_dispatch:
     types: [payments-sync-ready]
+permissions:
+  contents: write
 
 jobs:
   sync-changes:
