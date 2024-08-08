@@ -55,11 +55,11 @@ jobs:
           body: Testin
           reviewers: johnathanbo
 
-      - name: Commit changes
-        run: |
-          git add .
-          git commit -m "Sync payments folder from main-repo"
-
-      - name: Push changes
-        run: |
-          git push https://x-access-token:${PAT}@github.com/${REPO_OWNER}/cicd-playground2.git main
+      # - name: Commit changes
+      #   run: |
+      #     git add .
+      #     git commit -m "Sync payments folder from main-repo"
+      #
+      # - name: Push changes
+      #   run: |
+      #     git push https://x-access-token:${PAT}@github.com/${REPO_OWNER}/cicd-playground2.git main
