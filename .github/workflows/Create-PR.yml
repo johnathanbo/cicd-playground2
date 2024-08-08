@@ -1,4 +1,4 @@
-name: Sync Changes from Remote Repo
+name: Create PR
 
 on:
   repository_dispatch:
