@@ -8,7 +8,11 @@ jobs:
   sync-changes:
     runs-on: ubuntu-latest
     env:
-      PAT: ${{ secrets.PAT }}
+      PAT: ${{ secrets.PAT}}
+      GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
+      GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
+      REPO_OWNER: ${{ secrets.REPO_OWNER }}
+      REPO_NAME: ${{ secrets.REPO_NAME }}
 
     steps:
       - name: Checkout main repository
@@ -16,14 +20,19 @@ jobs:
         with:
           token: ${{ secrets.PAT }}
 
-      - name: Clone remote repository
+      - name: Set up Git
         run: |
-          git clone https://x-access-token:${{ secrets.PAT }}@github.com/johnathanbo/jb-cicd-playground.git
+          git config --global user.name '${GIT_USERNAME}'
+          git config --global user.email '${GIT_EMAIL}'
 
       - name: Set up Git credentials
         run: |
           git config --global credential.helper 'store'
           echo "https://x-access-token:${PAT}@github.com" > ~/.git-credentials
+
+      - name: Clone remote repository
+        run: |
+          git clone https://x-access-token:${{ secrets.PAT }}@github.com/johnathanbo/jb-cicd-playground.git
 
       - name: Copy changes from remote repository
         run: |
