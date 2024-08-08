@@ -38,3 +38,4 @@ jobs:
           body: This PR syncs changes from the remote repository to the main repository.
           reviewers: johnathanbo
           branch: sergey-staging
+          base: main
