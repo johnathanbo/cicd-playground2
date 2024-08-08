@@ -50,11 +50,12 @@ jobs:
       - name: Create Pull request
         uses: peter-evans/create-pull-request@v6
         with:
-          token: ${secrets.PAT}
+          token: ${{secrets.PAT}}
           commit-message: Syncing changes to main repo
-          title: Automated - Payments-Repo Sync
+          title: "[Automated] JB"
           body: Testin
           reviewers: johnathanbo
+          branch: main
 
       # - name: Commit changes
       #   run: |
