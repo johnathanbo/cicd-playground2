@@ -37,6 +37,7 @@ jobs:
       - name: Copy changes from remote repository
         run: |
           cp -r jb-cicd-playground/payments/* .
+          rm -rf jb-cicd-playground
           git checkout -b sergey-staging
           git add .
           git commit -m "[AUTOMATED] Sync payments folder from remote repo"
