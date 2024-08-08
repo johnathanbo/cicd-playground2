@@ -24,8 +24,8 @@ jobs:
 
       - name: Set up Git
         run: |
-          git config --global user.name '${GIT_USERNAME}'
-          git config --global user.email '${GIT_EMAIL}'
+          git config --global user.name ${GIT_USERNAME}
+          git config --global user.email ${GIT_EMAIL}
 
       - name: Set up Git credentials
         run: |
@@ -46,7 +46,7 @@ jobs:
 
       - name: Push changes to new branch
         run: |
-          git push https://x-access-token:${{ secrets.PAT }}@github.com/johnathanbo/jb-cicd-playground.git sergey-staging
+          git push https://x-access-token:${PAT}@github.com/johnathanbo/jb-cicd-playground.git sergey-staging
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
