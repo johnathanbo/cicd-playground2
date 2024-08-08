@@ -54,4 +54,12 @@ jobs:
 
       - name: Push changes
         run: |
-          git push https://x-access-token:${PAT}@github.com/${REPO_OWNER}/cicd-playground2.git main
+          git push https://x-access-token:${PAT}@github.com/${REPO_OWNER}/payments-remote.git main
+
+      - name: Create Pull request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: Syncing changes to main repo
+          title: Automated - Payments-Repo Sync
+          body: Testin
+          reviewrs: johnathanbo
