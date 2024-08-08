@@ -5,6 +5,7 @@ on:
     types: [payments-sync-ready]
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   Create-PR:
