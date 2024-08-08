@@ -7,7 +7,7 @@ permissions:
   contents: write
 
 jobs:
-  sync-changes:
+  Create-PR:
     runs-on: ubuntu-latest
     env:
       PAT: ${{ secrets.PAT}}
