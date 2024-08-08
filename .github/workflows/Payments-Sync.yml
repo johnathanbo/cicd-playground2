@@ -54,7 +54,7 @@ jobs:
 
       - name: Push changes
         run: |
-          git push https://x-access-token:${PAT}@github.com/${REPO_OWNER}/payments-remote.git main
+          git push https://x-access-token:${PAT}@github.com/${REPO_OWNER}/cicd-playground2.git main
 
       - name: Create Pull request
         uses: peter-evans/create-pull-request@v6
