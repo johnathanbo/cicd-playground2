@@ -47,21 +47,11 @@ jobs:
           cd ..
           rm -rf ${REPO_NAME}
 
-      - name: Create Pull request
-        uses: peter-evans/create-pull-request@v6
-        with:
-          token: ${{secrets.PAT}}
-          commit-message: Syncing changes to main repo
-          title: "[Automated] JB"
-          body: Testin
-          reviewers: johnathanbo
-          branch: main
+      - name: Commit changes
+        run: |
+          git add .
+          git commit -m "Sync payments folder from main-repo"
 
-      # - name: Commit changes
-      #   run: |
-      #     git add .
-      #     git commit -m "Sync payments folder from main-repo"
-      #
-      # - name: Push changes
-      #   run: |
-      #     git push https://x-access-token:${PAT}@github.com/${REPO_OWNER}/cicd-playground2.git main
+      - name: Push changes
+        run: |
+          git push https://x-access-token:${PAT}@github.com/${REPO_OWNER}/cicd-playground2.git main

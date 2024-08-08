@@ -1,0 +1,40 @@
+name: Sync Changes from Remote Repo
+
+on:
+  repository_dispatch:
+    types: [payments-sync-ready]
+
+jobs:
+  sync-changes:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout main repository
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.PAT }}
+
+      - name: Clone remote repository
+        run: |
+          git clone https://x-access-token:${{ secrets.PAT }}@github.com/johnathanbo/jb-cicd-playground.git
+
+      - name: Copy changes from remote repository
+        run: |
+          cp -r jb-cicd-playground/payments/* .
+          git checkout -b sergey-staging
+          git add .
+          git commit -m "[AUTOMATED] Sync payments folder from remote repo"
+
+      - name: Push changes to new branch
+        run: |
+          git push https://x-access-token:${{ secrets.PAT }}@github.com/johnathanbo/jb-cicd-playground.git sergey-staging
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.PAT }}
+          commit-message: Syncing changes to main repo
+          title: "[Automated] Sync changes from remote repo"
+          body: This PR syncs changes from the remote repository to the main repository.
+          reviewers: johnathanbo
+          branch: sergey-staging
